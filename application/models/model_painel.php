@@ -17,14 +17,23 @@ class Model_painel extends CI_Model {
       return $res->row_array();
    }
 
-   public function get_todo($username = ""){
-      $sql = "SELECT distinct(c.numero), c.id, to_char(a.dt_andamento,'YYYY') as ano, ls.nome, to_char(a.texto) as texto
-                  from chamados c, andamentos a, portal ps, portal pd, lotacao ld, lotacao ls
-                where c.lotacaosolicitante = ps.lotacao and c.lotacaodestino = pd.lotacao and
-           pd.login = '$username' and a.classificacao = 'ABE' and a.chamado = c.id and c.responsavel is null 
-           and pd.lotacao = ld.id and ps.lotacao = ls.id ORDER BY c.id ";
-      $res = $this->db2->query($sql);
-      return $res->result_array();
+   public function get_todo($secao = 0){
+           $sql = "SELECT CH.ID, CH.NUMERO, CH.LOTACAODESTINO, to_char(an.dt_andamento,'YYYY') as ano, AST.DESCRICAO, to_char(AN.TEXTO) as texto, SV.NOME, CH.STATUS, LT.NOME, CH.LOTACAOSOLICITANTE  
+      FROM CHAMADOS CH, ASSUNTOS AST, ANDAMENTOS AN, PORTAL PT, SERVIDORES SV, LOTACAO LT 
+      WHERE 
+        CH.ASSUNTO = AST.ID AND 
+       LT.ID = CH.LOTACAOSOLICITANTE AND 
+       CH.ID = AN.CHAMADO AND 
+        AN.CLASSIFICACAO = 'ABE' AND 
+        PT.ID(+) = CH.RESPONSAVEL AND 
+        SV.CODISERV(+) = SUBSTR(PT.CODIGO, 1, LENGTH(PT.CODIGO) - 2) AND 
+        CH.STATUS = 'AF' AND 
+        CH.LOTACAODESTINO = $secao
+      ORDER BY CH.ID, CH.LOTACAODESTINO, SV.NOME, AN.DT_ANDAMENTO ";
+    $res = $this->db2->query($sql);
+      if($res)
+        return $res->result_array();
+      return null;
    }
 
    public function get_doing($secao = 0){
@@ -41,8 +50,10 @@ class Model_painel extends CI_Model {
         CH.LOTACAODESTINO = $secao
       ORDER BY CH.ID, CH.LOTACAODESTINO, SV.NOME, AN.DT_ANDAMENTO ";
 
-       $res = $this->db2->query($sql);
-      return $res->result_array();
+      $res = $this->db2->query($sql);
+      if($res)
+        return $res->result_array();
+      return null;
 
    }
 

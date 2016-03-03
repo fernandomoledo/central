@@ -65,13 +65,13 @@ $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
 
-$db['oracle']['hostname'] = '(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = UNA)(PORT = 1521))
-    (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = ORAC)))';
+$db['oracle']['hostname'] = '(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = UNANOVA)(PORT = 1521))
+    (CONNECT_DATA =  (SERVICE_NAME = ORAC)))'; //(SERVER = DEDICATED)
 $db['oracle']['username'] = 'luizmoledo_cntatd';
 $db['oracle']['password'] = 'frinfofrinfo';
-$db['oracle']['database'] = '';
+$db['oracle']['database'] = 'UNANOVA';
 $db['oracle']['dbdriver'] = 'oci8';
-$db['oracle']['dbprefix'] = '';
+$db['oracle']['dbprefix'] = 'UNANOVA';
 $db['oracle']['pconnect'] = TRUE;
 $db['oracle']['db_debug'] = FALSE;
 $db['oracle']['cache_on'] = FALSE;

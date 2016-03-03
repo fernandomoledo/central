@@ -34,9 +34,11 @@ class Painel extends CI_Controller {
 		//echo getenv("USERNAME");
 		
 		$meus_dados = $this->model_painel->get_lotacao($usuario);
-		$meus_dados['LOTACAO'] = utf8_decode('Seção de Atendimento Especializado');
+		$this->session->set_userdata('lotacao', $meus_dados['ID']);
+
 		$this->data['dados'] = $meus_dados;
 
+		//var_dump(($meus_dados));
 		$this->load->view('view_topo');
 		$this->load->view('view_painel', $this->data);
 		$this->load->view('view_rodape');
@@ -77,8 +79,8 @@ class Painel extends CI_Controller {
 	}
 
 	public function get_todo(){
-		$usuario = $this->session->userdata('usuario');
-		$todo = $this->model_painel->get_todo($usuario);
+		$lotacao = $this->session->userdata('lotacao');
+		$todo = $this->model_painel->get_todo($lotacao);
 
 		$retorno = "<h3>A Fazer</h3>";
         if(!$todo) $retorno .= "Não existem chamados a fazer hoje ".date('d/m/Y'); 
@@ -118,8 +120,8 @@ class Painel extends CI_Controller {
 	}
 
 	public function get_doing(){
-		$usuario = $this->session->userdata('usuario');
-		$doing = $this->model_painel->get_doing($usuario);
+		$lotacao = $this->session->userdata('lotacao');
+		$doing = $this->model_painel->get_doing($lotacao);
 
 		$retorno = "<h3>Em andamento</h3>";
         if(!$doing) $retorno .= "Não existem chamados em andamento hoje ".date('d/m/Y'); 
@@ -138,8 +140,8 @@ class Painel extends CI_Controller {
 	}
 
 	public function get_done(){
-		$usuario = $this->session->userdata('usuario');
-		$done = $this->model_painel->get_done($usuario);
+		$lotacao = $this->session->userdata('lotacao');
+		$done = $this->model_painel->get_done($lotacao);
 
 		$retorno = "<h3>Concluídos</h3>";
         if(!$done) $retorno .= "Não existem chamados concluídos hoje ".date('d/m/Y'); 
@@ -156,5 +158,21 @@ class Painel extends CI_Controller {
           }//fecha o fereach
            echo $retorno;
 	}
+
+/*
+	public function teste(){
+		$texto = "O rato roeu a roupa do rei de Roma";
+		$parte = substr($texto, (stripos($texto, "rei") - 10), 10);
+		//echo stripos($texto, "rei");
+		//echo "<br />";
+		
+		//str_replace(search, replace, subject)
+			
+		//echo "<br />";
+		$parte .= substr($texto, stripos($texto, "rei"), 10);
+
+		echo "(...)" . str_replace("rei", "<mark>rei</mark>", $parte ) . "(...)";
+	}
 	
+	*/
 }

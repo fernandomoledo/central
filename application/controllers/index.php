@@ -34,9 +34,8 @@ class Index extends CI_Controller {
 		$dados = $this->input->post();
 
 		$retorno = $this->model_usuario->get_login($dados['txt_usuario']);
-
-		$retorno = 1;
 		
+		//$retorno = 1;
 		if($retorno){
 			$this->session->set_userdata('usuario', $dados['txt_usuario']);
 			redirect(base_url().'painel');

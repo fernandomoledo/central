@@ -47,9 +47,9 @@ $(document).ready(function(){
 	get_avisos();
 
 	setInterval(get_avisos, 1000);
-	setInterval(get_todo, 1000);
-	setInterval(get_doing, 1000);
-	setInterval(get_done, 1000);
+	setInterval(get_todo, (60 * 1000));
+	setInterval(get_doing, (60 * 1000));
+	setInterval(get_done, (60 * 1000));
 
 	$("#txt_aviso").keypress(function(e){
 		if(e.which == 13){
@@ -81,7 +81,6 @@ $(document).ready(function(){
 		$.ajax({
 			url: "painel/get_avisos",
 			success: function(data){
-				console.log(data);
 				$("#avisos_chat").html(data);
 			}
 		});
@@ -100,6 +99,7 @@ $(document).ready(function(){
 		$.ajax({
 			url: "painel/get_doing",
 			success: function(data){
+				console.log(data);
 				$("#chamados-doing").html(data);
 			}
 		});

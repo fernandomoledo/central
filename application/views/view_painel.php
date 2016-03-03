@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Título -->
       <div class="row">
         <div class="col-md-12 text-center">
-          <h1><a href="base.html" style="text-decoration: none">Painel de Chamados</a></h1>
+          <h1>Painel de Chamados</h1>
         </div>
       </div>
       <div class="push2"></div>
